@@ -2,9 +2,6 @@
 @section('title','Detail Pemesanan')
 @section('content')
 <div class="card card-default">
-   	<form method="post" action="{{route('pemesanan').'/'.$pemesanan->id}}">
-   		@csrf
-         @method('PATCH')
       	<div class="card-body">
          	<div class="row">
             	<div class="col-md-12">
@@ -16,6 +13,14 @@
                   <div class="form-group">
                      <small>Jenis Reklame</small>
                      <input type="text" readonly required value="{{$pemesanan->reklame->nama_jenis_reklame}}" class="form-control">
+                  </div>
+                  <div class="form-group">
+                     <small>Klasifikasi</small>
+                     <input type="text" readonly required value="{{$pemesanan->reklame->kategori->nama_kategori}}" class="form-control">
+                  </div>
+                  <div class="form-group">
+                     <small>Titik Reklame</small>
+                     <input type="text" readonly required value="{{$pemesanan->titik_reklame->lokasi}}" class="form-control">
                   </div>
                   <div class="form-group">
                      <small>Tanggal Pemasangan:</small>
@@ -50,15 +55,21 @@
                   @if($pemesanan->status_perizinan == 1)
                     <div class="form-group">
                      <small>Status Pembayaran:</small>
-                     @if($pemesanan->pembayaran->count() == 0)
-                        <span class="badge badge-warning">Belum Bayar</span>
+                     @if($pemesanan->status_pembayaran == 0)
+                        <a href="{{url()->current().'/bayar'}}" onclick="return confirm('Apakah anda yakin?')"><span class="badge badge-warning">Belum Bayar</span></a> <small>(click untuk merubah status)</small>
                      @else
-                        @if($pemesanan->pembayaran->last()->status_pembayaran == 0)
-                            <a href="{{asset('uploads/'.$pemesanan->pembayaran->last()->file_bukti_transfer)}}" target="_blank"><span class="badge badge-success">Lihat</span></a> <a href="{{url()->current().'/pembayaran'}}" onclick="return confirm('Apakah anda yakin?')"><span class="badge badge-warning">Belum diverifikasi</span></a> <small>(Click untuk memverifikasi)</small>
-                        @else
-                            <span class="badge badge-success">Diverifikasi</span> <a href="{{asset('uploads/'.$pemesanan->pembayaran->last()->file_bukti_transfer)}}" target="_blank"><span class="badge badge-success">Lihat</span></a>
-                        @endif
+                        <span class="badge badge-success">Terbayar</span>
                      @endif
+                     <form method="post" action="{{route('pemesanan').'/'.$pemesanan->id.''}}">
+                        @csrf
+                        @method('PATCH')
+                        @if($pemesanan->status_pembayaran == 1)
+                            <input type="text" placeholder="Input harga reklame" name="harga" value="{{$pemesanan->harga}}" class="form-control" disabled>
+                        @else
+                            <input type="text" placeholder="Input harga reklame" name="harga" value="{{$pemesanan->harga}}" class="form-control">
+                        @endif
+                        <input type="submit" class="btn btn-primary btn-sm" value="Tetapkan Harga" style="margin-top: 2px;">
+                      </form>
                   </div>
 
                   <div class="form-group">
@@ -78,7 +89,6 @@
       	<div class="card-footer">
          	<a href="{{route('pemesanan')}}" class="btn btn-default btn-sm">Kembali</a>
       	</div>
-   	</form>
 </div>
 @endsection
 @section('scripts')

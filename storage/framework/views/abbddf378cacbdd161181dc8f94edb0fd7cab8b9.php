@@ -48,6 +48,14 @@
                         </a>
                      </li>
                   </ul>
+                  <ul class="nav nav-treeview">
+                     <li class="nav-item has-treeview">
+                        <a href="<?php echo e(route('titik')); ?>" class="nav-link">
+                           <i class="fa fa-circle nav-icon text-red"></i>
+                           <p>Titik Lokasi</p>
+                        </a>
+                     </li>
+                  </ul>
                </li>
             <?php endif; ?>
             <li class="nav-item has-treeview">

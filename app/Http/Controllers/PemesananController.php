@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pemesanan;
-use App\Models\Pembayaran;
 use Illuminate\Http\Request;
 
 class PemesananController extends Controller
@@ -72,7 +71,12 @@ class PemesananController extends Controller
      */
     public function update(Request $request, Pemesanan $pemesanan)
     {
-        //
+        Pemesanan::where('id', $pemesanan->id)
+        ->update([
+            'harga' => $request->harga
+        ]);
+
+        return redirect()->back();
     }
 
     /**
@@ -97,21 +101,21 @@ class PemesananController extends Controller
         return redirect()->back();
     }
 
-    public function pembayaran(Request $request)
-    {
-        Pembayaran::where('pemesanan_id', $request->id)
-        ->update([
-            'status_pembayaran' => 1,
-        ]);
-
-        return redirect()->back();
-    }
-
     public function reklame(Request $request)
     {
         Pemesanan::where('id', $request->id)
         ->update([
             'status_reklame' => 1,
+        ]);
+
+        return redirect()->back();
+    }
+
+    public function bayar(Request $request)
+    {
+        Pemesanan::where('id', $request->id)
+        ->update([
+            'status_pembayaran' => 1,
         ]);
 
         return redirect()->back();

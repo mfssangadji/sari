@@ -1,33 +1,29 @@
 @extends('auths.layouts.app')
-@section('title','Reklame')
+@section('title','Titik Lokasi')
 @section('content')
   <div class="card">
     <div class="card-header">
-          <a href="{{route('reklame.add')}}" class="btn btn-info btn-sm">Tambah Reklame</a>
+          <a href="{{route('titik.add')}}" class="btn btn-info btn-sm">Tambah Titik</a>
         </div>
         <div class="card-body">
           <table id="posttable" class="table">
             <thead>
             <tr>
               <td>No</td>
-              <td>Kategori</td>
-              <td>Nama Jenis Reklame</td>
-              <td>Keterangan</td>
-              <td>Harga</td>
+              <td>Reklame</td>
+              <td>Lokasi</td>
               <td>#</td>
             </tr>
             </thead>
             <tbody>
-              @foreach($reklame as $reklame)
+              @foreach($titik as $titik)
                 <tr>
                   <td>{{$loop->iteration}}</td>
-                  <td>{{$reklame->kategori->nama_kategori}}</td>
-                  <td>{{$reklame->nama_jenis_reklame}}</td>
-                  <td>{{$reklame->keterangan}}</td>
-                  <td>Rp. {{number_format($reklame->harga)}}</td>
+                  <td>{{$titik->reklame->nama_jenis_reklame}} ({{$titik->reklame->kategori->nama_kategori}})</td>
+                  <td>{{$titik->lokasi}}</td>
                   <td>
-                    <a href="{{ route('reklame').'/'.$reklame->id.'/edit' }}" class="badge bg-info">edit</a>
-                    <form method="post" action="{{ route('reklame').'/'.$reklame->id }}" style="display:inline">
+                    <a href="{{ route('titik').'/'.$titik->id.'/edit' }}" class="badge bg-info">edit</a>
+                    <form method="post" action="{{ route('titik').'/'.$titik->id }}" style="display:inline">
                       @method('DELETE')
                       @csrf
                     <button type="submit" class="badge bg-red" onclick="return confirm('are you sure?')" style="border: none;">hapus</button>

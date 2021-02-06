@@ -72,8 +72,21 @@
               <input type="text" readonly class="form-control" value="{{$reklame->nama_jenis_reklame}}">
             </div>
             <div class="mb-3">
+              <label for="text">Klasifikasi</label>
+              <input type="text" readonly class="form-control" value="{{$reklame->kategori->nama_kategori}}">
+            </div>
+            <div class="mb-3">
               <label for="text">Harga</label>
               <input type="text" readonly class="form-control" value="Rp. {{number_format($reklame->harga)}} (minimal perkiraan)">
+            </div>
+            <div class="mb-3">
+              <label for="text">Titik Reklame</label>
+              <select class="form-control" required name="titik_reklame_id">
+                <option value="" selected></option>
+                @foreach($reklame->titik_reklame as $val)
+                  <option value="{{$val->id}}">{{$val->lokasi}}</option>
+                @endforeach
+              </select>
             </div>
             <div class="row">
               <div class="col-md-6 mb-3">

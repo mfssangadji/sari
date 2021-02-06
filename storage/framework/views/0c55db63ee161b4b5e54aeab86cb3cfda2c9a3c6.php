@@ -64,7 +64,11 @@
         <?php $__currentLoopData = $reklame; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $reklame): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
           <div class="card mb-4 box-shadow">
             <div class="card-header">
-              <h4 class="my-0 font-weight-normal"><?php echo e($reklame->nama_jenis_reklame); ?></h4>
+              <h4 class="my-0 font-weight-normal"><?php echo e($reklame->nama_jenis_reklame); ?>
+
+                <br>
+                <span class="badge badge-warning"><?php echo e($reklame->kategori->nama_kategori); ?></span>
+              </h4>
             </div>
             <div class="card-body">
               <h4 class="card-title pricing-card-title">Rp <?php echo e(number_format($reklame->harga)); ?><small class="text-muted"> (min)</small></h4>

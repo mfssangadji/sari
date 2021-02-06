@@ -64,7 +64,10 @@
         @foreach($reklame as $reklame)
           <div class="card mb-4 box-shadow">
             <div class="card-header">
-              <h4 class="my-0 font-weight-normal">{{$reklame->nama_jenis_reklame}}</h4>
+              <h4 class="my-0 font-weight-normal">{{$reklame->nama_jenis_reklame}}
+                <br>
+                <span class="badge badge-warning">{{$reklame->kategori->nama_kategori}}</span>
+              </h4>
             </div>
             <div class="card-body">
               <h4 class="card-title pricing-card-title">Rp {{number_format($reklame->harga)}}<small class="text-muted"> (min)</small></h4>

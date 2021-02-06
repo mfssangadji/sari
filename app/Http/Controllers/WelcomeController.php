@@ -6,7 +6,6 @@ use Auth;
 use App\Models\User;
 use App\Models\Reklame;
 use App\Models\Pemesanan;
-use App\Models\Pembayaran;
 use Illuminate\Http\Request;
 
 class WelcomeController extends Controller
@@ -125,6 +124,7 @@ class WelcomeController extends Controller
             Pemesanan::create([
                 'user_id' => auth()->user()->id,
                 'reklame_id' => $request->reklame_id,
+                'titik_reklame_id' => $request->titik_reklame_id,
                 'kode_pemesanan' => rand(111119,999999),
                 'tanggal_awal_pemasangan' => $request->tanggal_awal_pemasangan,
                 'tanggal_akhir_pemasangan' => $request->tanggal_akhir_pemasangan,
@@ -172,5 +172,11 @@ class WelcomeController extends Controller
     {
     	Auth::logout();
     	return redirect()->route('clogin');
+    }
+
+    public function cetak(Request $request)
+    {
+        $pemesanan = Pemesanan::find($request->id);
+        return view('nota', compact('pemesanan'));
     }
 }

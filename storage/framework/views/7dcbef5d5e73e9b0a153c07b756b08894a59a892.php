@@ -72,8 +72,21 @@
               <input type="text" readonly class="form-control" value="<?php echo e($reklame->nama_jenis_reklame); ?>">
             </div>
             <div class="mb-3">
+              <label for="text">Klasifikasi</label>
+              <input type="text" readonly class="form-control" value="<?php echo e($reklame->kategori->nama_kategori); ?>">
+            </div>
+            <div class="mb-3">
               <label for="text">Harga</label>
               <input type="text" readonly class="form-control" value="Rp. <?php echo e(number_format($reklame->harga)); ?> (minimal perkiraan)">
+            </div>
+            <div class="mb-3">
+              <label for="text">Titik Reklame</label>
+              <select class="form-control" required name="titik_reklame_id">
+                <option value="" selected></option>
+                <?php $__currentLoopData = $reklame->titik_reklame; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $val): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                  <option value="<?php echo e($val->id); ?>"><?php echo e($val->lokasi); ?></option>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+              </select>
             </div>
             <div class="row">
               <div class="col-md-6 mb-3">

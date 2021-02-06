@@ -16,14 +16,16 @@ class Pemesanan extends Model
     
     protected $fillable = [
     	'user_id',
-    	'reklame_id',
+        'reklame_id',
+    	'titik_reklame_id',
     	'kode_pemesanan',
     	'tanggal_awal_pemasangan',
     	'tanggal_akhir_pemasangan',
     	'isi_reklame',
     	'harga',
     	'file_pendukung',
-    	'status_perizinan',
+        'status_perizinan',
+    	'status_pembayaran',
     	'status_reklame',
     ];
 
@@ -40,5 +42,10 @@ class Pemesanan extends Model
     public function pembayaran()
     {
         return $this->hasMany(Pembayaran::class);
+    }
+
+    public function titik_reklame()
+    {
+        return $this->belongsTo(TitikReklame::class);
     }
 }

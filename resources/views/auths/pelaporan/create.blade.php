@@ -1,3 +1,4 @@
+<title>Pelaporan</title>
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.dataTables.min.css">
 <style type="text/css">
@@ -11,50 +12,26 @@
         <thead>
         <tr>
           <td>Order ID</td>
-          <td>Customer</td>
-          <td>No. Telp</td>
+          <td>Nama Instansi</td>
+          <td>Klasifikasi Reklame</td>
           <td>Jenis Reklame</td>
-          <td>Isi Reklame</td>
-          <td>Tgl. Pemesanan</td>
-          <td>Tgl. Pemasangan</td>
-          <td>Status Perizinan</td>
-          <td>Status Pembayaran</td>
-          <td>Status Reklame</td>
+          <td>Titik Reklame</td>
+          <td>Tgl. Awal Pemasangan</td>
+          <td>Tgl. Akhir Pemasangan</td>
+          <td>Harga</td>
         </tr>
         </thead>
         <tbody>
           @foreach($pemesanan as $pemesanan)
             <tr>
               <td>#{{$pemesanan->kode_pemesanan}}</td>
-              <td>{{$pemesanan->user->nama_lengkap}}</td>
-              <td>{{$pemesanan->user->no_telp}}</td>
+              <td>{{$pemesanan->user->nama_instansi}}</td>
+              <td>{{$pemesanan->reklame->kategori->nama_kategori}}</td>
               <td>{{$pemesanan->reklame->nama_jenis_reklame}}</td>
-              <td>{{$pemesanan->isi_reklame}}</td>
-              <td>{{$pemesanan->created_at->format('d F Y')}}</td>
-              <td>{{$pemesanan->tanggal_awal_pemasangan->format('d F Y')}} - {{$pemesanan->tanggal_akhir_pemasangan->format('d F Y')}}</td>
-              <td>
-                @if($pemesanan->status_perizinan == 0)
-                    Belum diverifikasi
-                @elseif($pemesanan->status_perizinan == 1)
-                    Diverifikasi
-                @endif
-              </td>
-              <td>
-                @if($pemesanan->pembayaran->last()->status_pembayaran == 0)
-                    Belum Bayar
-                @else
-                    Terbayar
-                @endif
-              </td>
-              <td>
-                @if($pemesanan->status_reklame == 0)
-                    Tunda
-                @elseif($pemesanan->status_reklame == 1)
-                    Aktif
-                @elseif($pemesanan->status_reklame == 2)
-                    Non Aktif
-                @endif
-              </td>
+              <td>{{$pemesanan->titik_reklame->lokasi}}</td>
+              <td>{{$pemesanan->tanggal_awal_pemasangan->format('d F Y')}}</td>
+              <td>{{$pemesanan->tanggal_akhir_pemasangan->format('d F Y')}}</td>
+              <td>{{$pemesanan->harga}}</td>
             </tr>
           @endforeach
         </tbody>

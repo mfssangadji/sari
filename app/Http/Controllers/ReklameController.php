@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Reklame;
+use App\Models\KategoriReklame;
 use Illuminate\Http\Request;
 
 class ReklameController extends Controller
@@ -25,7 +26,8 @@ class ReklameController extends Controller
      */
     public function create()
     {
-        return view('auths.reklame.create');
+        $kategori = KategoriReklame::all();
+        return view('auths.reklame.create', compact('kategori'));
     }
 
     /**
@@ -37,6 +39,7 @@ class ReklameController extends Controller
     public function store(Request $request)
     {
         Reklame::create([
+            'kategori_id' => $request->kategori_id,
             'nama_jenis_reklame' => $request->nama_jenis_reklame,
             'keterangan' => $request->keterangan,
             'harga' => $request->harga,
@@ -64,8 +67,9 @@ class ReklameController extends Controller
      */
     public function edit(Reklame $reklame)
     {
+        $kategori = KategoriReklame::all();
         $reklame = Reklame::find($reklame->id);
-        return view('auths.reklame.edit', compact('reklame'));
+        return view('auths.reklame.edit', compact('reklame', 'kategori'));
     }
 
     /**
@@ -79,6 +83,7 @@ class ReklameController extends Controller
     {
         Reklame::where('id', $reklame->id)
         ->update([
+            'kategori_id' => $request->kategori_id,
             'nama_jenis_reklame' => $request->nama_jenis_reklame,
             'keterangan' => $request->keterangan,
             'harga' => $request->harga,

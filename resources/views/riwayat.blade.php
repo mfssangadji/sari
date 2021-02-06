@@ -74,12 +74,15 @@
             <tr>
               <td>Order ID</td>
               <td>Jenis Reklame</td>
+              <td>Klasifikasi</td>
+              <td>Titik Reklame</td>
               <td>Tgl. Pemasangan</td>
               <td>Isi Reklame</td>
               <td>File Pendukung</td>
               <td>Status Perizinan</td>
               <td>Status Pembayaran</td>
               <td>Status Reklame</td>
+              <td>Harga</td>
               <td>#</td>
             </tr>
             </thead>
@@ -88,6 +91,8 @@
                     <tr>
                       <td>#{{$p->kode_pemesanan}}</td>
                       <td>{{$p->reklame->nama_jenis_reklame}}</td>
+                      <td>{{$p->reklame->kategori->nama_kategori}}</td>
+                      <td>{{$p->titik_reklame->lokasi}}</td>
                       <td>{{$p->tanggal_awal_pemasangan->format('d-m-Y')}} - {{$p->tanggal_akhir_pemasangan->format('d-m-Y')}}</td>
                       <td>{{$p->isi_reklame}}</td>
                       <td>
@@ -108,16 +113,10 @@
                         @endif
                       </td>
                       <td>
-                        @if($p->status_perizinan == 1 && $p->pembayaran->count() == 0)
-                          <a href="{{url('riwayat/'.$p->id.'/payment')}}"><span class="badge badge-warning">Upload Bukti Pembayaran</span></a>
-                        @elseif($p->status_perizinan == 1 && $p->pembayaran->count() > 0)
-                          @if($p->pembayaran->last()->status_pembayaran == 0)
-                              <span class="badge badge-warning">Belum diverifikasi</span> <a href="{{asset('uploads/'.$p->pembayaran->last()->file_bukti_transfer)}}" target="_blank"><span class="badge badge-success">Lihat</span></a>
-                          @else
-                              <span class="badge badge-success">Diverifikasi</span> <a href="{{asset('uploads/'.$p->pembayaran->last()->file_bukti_transfer)}}" target="_blank"><span class="badge badge-success">Lihat</span></a>
-                          @endif
-                        @else
-                          -
+                        @if($p->status_pembayaran == 0)
+                          <span class="badge badge-warning">Belum Dibayar</span>
+                        @elseif($p->status_pembayaran == 1)
+                          <span class="badge badge-success">Terbayar (<a href="{{url('riwayat/'.$p->id.'/cetak')}}" target="_blank" style="color: #FFF">Cetak Nota</a>)</span>
                         @endif
                       </td>
                       <td>
@@ -129,6 +128,7 @@
                           <span class="badge badge-danger">Non Aktif</span>
                         @endif
                       </td>
+                      <td>Rp. {{number_format($p->harga)}}</td>
                       <td>
                         <form method="post" action="{{ url('riwayat').'/'.$p->id }}" style="display:inline">
                           @method('DELETE')

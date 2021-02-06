@@ -76,12 +76,15 @@
             <tr>
               <td>Order ID</td>
               <td>Jenis Reklame</td>
+              <td>Klasifikasi</td>
+              <td>Titik Reklame</td>
               <td>Tgl. Pemasangan</td>
               <td>Isi Reklame</td>
               <td>File Pendukung</td>
               <td>Status Perizinan</td>
               <td>Status Pembayaran</td>
               <td>Status Reklame</td>
+              <td>Harga</td>
               <td>#</td>
             </tr>
             </thead>
@@ -90,6 +93,8 @@
                     <tr>
                       <td>#<?php echo e($p->kode_pemesanan); ?></td>
                       <td><?php echo e($p->reklame->nama_jenis_reklame); ?></td>
+                      <td><?php echo e($p->reklame->kategori->nama_kategori); ?></td>
+                      <td><?php echo e($p->titik_reklame->lokasi); ?></td>
                       <td><?php echo e($p->tanggal_awal_pemasangan->format('d-m-Y')); ?> - <?php echo e($p->tanggal_akhir_pemasangan->format('d-m-Y')); ?></td>
                       <td><?php echo e($p->isi_reklame); ?></td>
                       <td>
@@ -110,16 +115,10 @@
                         <?php endif; ?>
                       </td>
                       <td>
-                        <?php if($p->status_perizinan == 1 && $p->pembayaran->count() == 0): ?>
-                          <a href="<?php echo e(url('riwayat/'.$p->id.'/payment')); ?>"><span class="badge badge-warning">Upload Bukti Pembayaran</span></a>
-                        <?php elseif($p->status_perizinan == 1 && $p->pembayaran->count() > 0): ?>
-                          <?php if($p->pembayaran->last()->status_pembayaran == 0): ?>
-                              <span class="badge badge-warning">Belum diverifikasi</span> <a href="<?php echo e(asset('uploads/'.$p->pembayaran->last()->file_bukti_transfer)); ?>" target="_blank"><span class="badge badge-success">Lihat</span></a>
-                          <?php else: ?>
-                              <span class="badge badge-success">Diverifikasi</span> <a href="<?php echo e(asset('uploads/'.$p->pembayaran->last()->file_bukti_transfer)); ?>" target="_blank"><span class="badge badge-success">Lihat</span></a>
-                          <?php endif; ?>
-                        <?php else: ?>
-                          -
+                        <?php if($p->status_pembayaran == 0): ?>
+                          <span class="badge badge-warning">Belum Dibayar</span>
+                        <?php elseif($p->status_pembayaran == 1): ?>
+                          <span class="badge badge-success">Terbayar (<a href="<?php echo e(url('riwayat/'.$p->id.'/cetak')); ?>" target="_blank" style="color: #FFF">Cetak Nota</a>)</span>
                         <?php endif; ?>
                       </td>
                       <td>
@@ -131,6 +130,7 @@
                           <span class="badge badge-danger">Non Aktif</span>
                         <?php endif; ?>
                       </td>
+                      <td>Rp. <?php echo e(number_format($p->harga)); ?></td>
                       <td>
                         <form method="post" action="<?php echo e(url('riwayat').'/'.$p->id); ?>" style="display:inline">
                           <?php echo method_field('DELETE'); ?>

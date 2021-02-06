@@ -21,6 +21,7 @@ Route::get('/riwayat', 'WelcomeController@riwayat')->name('riwayat');
 Route::delete('/riwayat/{id}', 'WelcomeController@driwayat');
 Route::get('/riwayat/{id}/payment', 'WelcomeController@payment');
 Route::post('/riwayat/{id}/payment', 'WelcomeController@upayment');
+Route::get('/riwayat/{id}/cetak', 'WelcomeController@cetak');
 
 Route::get('/cregister', 'WelcomeController@cregister')->name('cregister');
 Route::post('/cregister', 'WelcomeController@pregister')->name('pregister');
@@ -57,6 +58,14 @@ Route::group(['middleware' => 'auth'], function(){
 		]
 	]);
 
+	Route::resource(config('app.root').'/titik', 'TitikReklameController', [
+		'names' => [
+			'index'  => 'titik',
+			'create' => 'titik.add',
+			'store'  => 'titik.store'
+		]
+	]);
+
 	Route::get(config('app.root').'/customer/{id}', 'CustomerController@show');
 	Route::resource(config('app.root').'/customer', 'CustomerController', [
 		'names' => [
@@ -66,8 +75,9 @@ Route::group(['middleware' => 'auth'], function(){
 
 	Route::get(config('app.root').'/pemesanan/{id}', 'PemesananController@show');
 	Route::get(config('app.root').'/pemesanan/{id}/perizinan', 'PemesananController@perizinan');
-	Route::get(config('app.root').'/pemesanan/{id}/pembayaran', 'PemesananController@pembayaran');
+	Route::get(config('app.root').'/pemesanan/{id}/bayar', 'PemesananController@bayar');
 	Route::get(config('app.root').'/pemesanan/{id}/reklame', 'PemesananController@reklame');
+	Route::patch(config('app.root').'/pemesanan/{id}/harga', 'PemesananController@update');
 	Route::resource(config('app.root').'/pemesanan', 'PemesananController', [
 		'names' => [
 			'index'  => 'pemesanan',

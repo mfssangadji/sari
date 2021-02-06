@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Pembayaran;
+use App\Models\KategoriReklame;
 use Illuminate\Http\Request;
 
-class PembayaranController extends Controller
+class KategoriReklameController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class PembayaranController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Pembayaran  $pembayaran
+     * @param  \App\Models\KategoriReklame  $kategoriReklame
      * @return \Illuminate\Http\Response
      */
-    public function show(Pembayaran $pembayaran)
+    public function show(KategoriReklame $kategoriReklame)
     {
         //
     }
@@ -52,10 +52,10 @@ class PembayaranController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Pembayaran  $pembayaran
+     * @param  \App\Models\KategoriReklame  $kategoriReklame
      * @return \Illuminate\Http\Response
      */
-    public function edit(Pembayaran $pembayaran)
+    public function edit(KategoriReklame $kategoriReklame)
     {
         //
     }
@@ -64,10 +64,10 @@ class PembayaranController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Pembayaran  $pembayaran
+     * @param  \App\Models\KategoriReklame  $kategoriReklame
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Pembayaran $pembayaran)
+    public function update(Request $request, KategoriReklame $kategoriReklame)
     {
         //
     }
@@ -75,10 +75,10 @@ class PembayaranController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Pembayaran  $pembayaran
+     * @param  \App\Models\KategoriReklame  $kategoriReklame
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Pembayaran $pembayaran)
+    public function destroy(KategoriReklame $kategoriReklame)
     {
         //
     }

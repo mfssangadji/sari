@@ -8,6 +8,17 @@
          	<div class="row">
             	<div class="col-md-12">
                   <div class="form-group">
+                     @error('kategori_id')
+                        <span class="field-error">kategori is empty</span>
+                     @enderror
+                     <small>Pilih Kategori Reklame:</small>
+                     <select class="form-control select2" required style="width: 100%" multiple="multiple" id="kategori_id" name="kategori_id">
+                        @foreach($kategori as $val)
+                          <option value="{{$val->id}}">{{$val->nama_kategori}}</option>
+                        @endforeach
+                      </select>
+                  </div>
+                  <div class="form-group">
                      @error('nama_jenis_reklame')
                         <span class="field-error">nama jenis reklame is empty</span>
                      @enderror

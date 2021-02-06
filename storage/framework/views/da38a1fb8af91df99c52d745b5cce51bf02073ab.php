@@ -8,6 +8,24 @@
          	<div class="row">
             	<div class="col-md-12">
                   <div class="form-group">
+                     <?php $__errorArgs = ['kategori_id'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                        <span class="field-error">kategori is empty</span>
+                     <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                     <small>Pilih Kategori Reklame:</small>
+                     <select class="form-control select2" required style="width: 100%" multiple="multiple" id="kategori_id" name="kategori_id">
+                        <?php $__currentLoopData = $kategori; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $val): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                          <option value="<?php echo e($val->id); ?>"><?php echo e($val->nama_kategori); ?></option>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                      </select>
+                  </div>
+                  <div class="form-group">
                      <?php $__errorArgs = ['nama_jenis_reklame'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
